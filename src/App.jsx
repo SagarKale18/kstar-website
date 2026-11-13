@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { company as c, features, products, industries, why, tileImg } from './data.js'
-import { wa, useTitle, btn, Gold, PageHead, Heading } from './ui.jsx'
+import { wa, useTitle, btn, btnPlum, btnOutline, btnLight, btnWa, Gold, PageHead, Heading } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
 import { Industries, Quality, Gallery, Faq } from './pages.jsx'
 

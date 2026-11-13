@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { products, industries, indMap, tileImg, faq, why } from './data.js'
-import { Gold, btn, useTitle, wa } from './ui.jsx'
+import { Gold, btn, btnWa, useTitle, wa } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
 
 export function Industries() {
