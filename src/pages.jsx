@@ -12,10 +12,10 @@ export function Industries() {
         const list = products.filter(p => p.cat === indMap[t])
         return (
           <section key={t} className={`card-lift grid items-center gap-6 overflow-hidden rounded-3xl border border-plum/10 bg-blush md:grid-cols-2 ${i % 2 ? 'md:[&>div:first-child]:order-2' : ''}`}>
-            <div className="flex h-64 items-center justify-center bg-gradient-to-br from-plum to-plum-dark p-6 md:h-full"><img src={tileImg[t]} alt={t} className="max-h-56 rounded-2xl object-contain shadow-2xl" /></div>
+            <div className="flex h-64 items-center justify-center bg-gradient-to-br from-plum to-plum-dark p-6 md:h-full"><img src={tileImg[t]} alt={t} loading="lazy" className="max-h-56 rounded-2xl bg-white object-contain shadow-2xl" /></div>
             <div className="p-6 md:p-10">
               <p className="eyebrow">Industry</p>
-              <h2 className="mt-1 text-3xl font-extrabold text-plum">{t}</h2>
+              <h2 className="mt-1 text-3xl font-bold text-plum">{t}</h2>
               <p className="mt-2 text-lg text-neutral-700">{d}</p>
               <p className="mt-4 font-semibold text-plum">Containers for {t.toLowerCase()}</p>
               <ul className="mt-1 list-inside list-disc text-neutral-700">{list.map(p => <li key={p.id}><Link className="underline" to={`/products/${p.id}`}>{p.name}</Link></li>)}</ul>
@@ -35,7 +35,7 @@ export function Quality() {
       <div className="grid items-center gap-8 md:grid-cols-2">
         <div>
           <p className="eyebrow">Certified quality</p>
-          <h2 className="mt-1 text-3xl font-extrabold text-plum">ISO 9001:2015 certified company</h2>
+          <h2 className="mt-1 text-3xl font-bold text-plum">ISO 9001:2015 certified company</h2>
           <p className="mt-3 text-lg text-neutral-700">K-Star Plastic Industries works under an ISO 9001:2015 certified quality system. Our containers are food grade and BPA free, and they are made to handle freezer storage, microwave heating and transport.</p>
         </div>
         {/* TODO: replace this box with the real ISO certificate image (public/images/iso-certificate.jpg) */}
@@ -58,13 +58,13 @@ export function Gallery() {
     window.addEventListener('keydown', k)
     return () => window.removeEventListener('keydown', k)
   }, [])
-  const imgs = [...products.map(p => [p.img, p.name]), ['/images/hero.png', 'K-Star product range'], ['/images/flyer.png', 'K-Star brochure']]
+  const imgs = products.map(p => [p.img, p.name])
   // TODO: add factory and machine photos to public/images/ and list them in imgs above.
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
         {imgs.map(([s, a]) => (
-          <button key={s} onClick={() => setOpen([s, a])} aria-label={`Open ${a}`} className="card-lift group overflow-hidden rounded-2xl border border-plum/10 bg-blush">
+          <button key={s} onClick={() => setOpen([s, a])} aria-label={`Open ${a}`} className="card-lift group overflow-hidden rounded-2xl border border-plum/10 bg-white">
             <img src={s} alt={a} loading="lazy" className="aspect-square w-full object-contain p-2 transition duration-300 group-hover:scale-105" />
           </button>
         ))}
@@ -95,7 +95,7 @@ export function Faq() {
       </div>
       <div className="mt-8 flex flex-wrap gap-3">
         <Gold to="/contact">Get a quote</Gold>
-        <a className={`${btn} gap-2 bg-green-700 text-white hover:brightness-110`} href={wa('Hello K-Star, I have a question.')} target="_blank" rel="noreferrer"><Icon name="chat" className="h-5 w-5" />Ask on WhatsApp</a>
+        <a className={`${btn} ${btnWa}`} href={wa('Hello K-Star, I have a question.')} target="_blank" rel="noreferrer"><Icon name="chat" className="h-5 w-5" />Ask on WhatsApp</a>
       </div>
     </div>
   )

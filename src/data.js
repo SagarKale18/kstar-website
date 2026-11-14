@@ -15,20 +15,21 @@ export const features = [
   ['utensils', 'Food grade'], ['snowflake', 'Freezer safe'], ['microwave', 'Microwave safe'], ['leaf', 'BPA free'], ['shield', 'Durable & strong'],
 ]
 
-// Only facts from the client flyer are filled in. "Ask us" = CONFIRM with client.
+// Product photos live in public/images/products/. "Ask us" = CONFIRM with client.
 export const products = [
-  { id: 'icecream-450ml', name: 'Ice cream container 450 ml', cat: 'Ice cream', img: '/images/ice450.png', size: '450 ml', desc: 'IML printed round tub with lid for ice cream and frozen desserts.' },
-  { id: 'icecream-100ml', name: 'Ice cream cup 100 ml', cat: 'Ice cream', img: '/images/ice100.png', size: '100 ml', desc: 'Single-serve IML cup with lid for ice cream and desserts.' },
-  { id: 'shrikhand-tub', name: 'Shrikhand tub', cat: 'Dairy & sweets', img: '/images/shrikhand.png', size: 'Ask us', desc: 'Rectangular IML tub with lid for shrikhand and other sweets.' },
-  { id: 'curd-bucket', name: 'Curd bucket with handle', cat: 'Dairy & sweets', img: '/images/curd.png', size: 'Ask us', desc: 'Strong IML bucket with carry handle for curd and dairy products.' },
-  { id: 'khajur-box', name: 'Khajur transparent box', cat: 'Dry fruits', img: '/images/khajur.png', size: 'Ask us', desc: 'Clear thin wall box with IML label for dates and dry fruits.' },
-].map(p => ({ ...p, specs: [['Type', p.cat === 'Dry fruits' ? 'Thin wall container' : 'IML container'], ['Capacity', p.size], ['Material', 'Food grade, BPA free'], ['Safe for', 'Freezer, microwave'], ['Dimensions', 'Ask us'], ['Custom printing', 'Yes, IML']] }))
+  { id: 'curd-bucket', name: 'Curd bucket with handle', cat: 'Dairy & sweets', img: '/images/products/curd-bucket.jpg', size: 'Large', desc: 'Large bucket with carry handle and a snug lid for curd and dairy products.' },
+  { id: 'ice-cream-family-pack', name: 'Ice cream family pack', cat: 'Ice cream', img: '/images/products/ice-cream-family-pack.jpg', size: 'Small family pack', desc: 'Oval family pack tub with lid for ice cream and frozen desserts.' },
+  { id: 'ice-cream-box', name: 'Ice cream box', cat: 'Ice cream', img: '/images/products/ice-cream-box.jpg', size: 'Ask us', desc: 'Square box with spoon-mark lid for ice cream and desserts.' },
+  { id: 'ice-cream-cup-100ml', name: 'Ice cream cup 100 ml', cat: 'Ice cream', img: '/images/products/ice-cream-cup-100ml.jpg', size: '100 ml', desc: 'Single-serve cup with lid for ice cream and desserts.' },
+  { id: 'ice-cream-cup-50ml', name: 'Ice cream cup 50 ml', cat: 'Ice cream', img: '/images/products/ice-cream-cup-50ml.jpg', size: '50 ml', desc: 'Small tasting cup with lid for ice cream and desserts.' },
+  { id: 'dates-khajur-box', name: 'Dates (khajur) box', cat: 'Dry fruits', img: '/images/products/dates-khajur-box.jpg', size: 'Ask us', desc: 'Rectangular box with lid for dates and dry fruits.' },
+].map(p => ({ ...p, specs: [['Type', 'IML / thin wall container'], ['Capacity', p.size], ['Material', 'Food grade, BPA free'], ['Safe for', 'Freezer, microwave'], ['Dimensions', 'Ask us'], ['Custom printing', 'Yes, IML']] }))
 
 export const industries = [
   ['Ice cream', 'Tubs and cups that handle freezer storage.'],
-  ['Dairy', 'Curd and shrikhand packs that stay secure in transport.'],
+  ['Dairy', 'Curd packs that stay secure in transport.'],
   ['Sweets', 'Clean, printed boxes that show your brand.'],
-  ['Dry fruits', 'Clear containers that show the product inside.'],
+  ['Dry fruits', 'Sturdy boxes that keep dates and dry fruits fresh.'],
 ]
 
 export const why = [
@@ -41,13 +42,24 @@ export const why = [
 ]
 
 export const indMap = { 'Ice cream': 'Ice cream', Dairy: 'Dairy & sweets', Sweets: 'Dairy & sweets', 'Dry fruits': 'Dry fruits' }
-export const tileImg = { 'Ice cream': '/images/ice450.png', Dairy: '/images/curd.png', Sweets: '/images/shrikhand.png', 'Dry fruits': '/images/khajur.png' }
+export const tileImg = {
+  'Ice cream': '/images/products/ice-cream-box.jpg',
+  Dairy: '/images/products/curd-bucket.jpg',
+  Sweets: '/images/products/ice-cream-family-pack.jpg',
+  'Dry fruits': '/images/products/dates-khajur-box.jpg',
+}
+
+// Partner logos live in public/images/partners/
+export const partners = [
+  ['Ladybean Coffee', 'ladybean-coffee'], ['Pepsi', 'pepsi'], ['Chaitanya Parathas', 'chaitanya-parathas'], ['Cafe 17-30', 'cafe-17-30'],
+  ['Zorko', 'zorko'], ['Dilli Darbar', 'dilli-darbar'], ['RD Cafe Ice-Cream', 'rd-cafe-ice-cream'], ['Zeeshan', 'zeeshan'],
+].map(([name, file]) => ({ name, img: `/images/partners/${file}.png` }))
 
 export const faq = [
-  ['What containers do you make?', 'IML and thin wall containers: ice cream tubs and cups, shrikhand tubs, curd buckets and khajur boxes.'],
+  ['What containers do you make?', 'IML and thin wall containers: ice cream cups, boxes and family packs, curd buckets and dates (khajur) boxes.'],
   ['Are they safe for food?', 'K-Star containers are food grade, BPA free, freezer safe and microwave safe.'],
   ['Can you print my brand on the container?', 'Yes. IML means the label is moulded into the container. Send your artwork and the size you need, and we confirm the details.'],
-  ['Which sizes are available?', 'We make 100 ml and 450 ml ice cream containers, plus shrikhand, curd and khajur packs. Ask us for the full size list.'],
+  ['Which sizes are available?', 'We make 50 ml and 100 ml ice cream cups, an ice cream box, a family pack, a large curd bucket and a dates (khajur) box. Ask us for the full size list.'],
   ['What is the minimum order?', 'It depends on the size and design. Send a quote request with your quantity and we reply with the details.'],
   ['Where are you located?', 'Gat No. 124/1, Mirje, near Shirwal MIDC, Mirje-Jawale Road, Tal. Khandala, Dist. Satara.'],
 ]
