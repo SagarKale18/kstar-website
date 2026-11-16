@@ -27,9 +27,9 @@ function Header() {
           {links.map(([to, l]) => <NavLink key={to} to={to} className={({ isActive }) => `font-medium transition ${isActive ? 'text-plum underline decoration-gold decoration-2 underline-offset-8' : 'text-neutral-700 hover:text-plum'}`}>{l}</NavLink>)}
           <Link to="/contact" className={`${btn} ${btnPlum} btn-sm`}>Get a quote</Link>
         </nav>
-        <button className="flex h-11 w-11 items-center justify-center text-plum lg:hidden" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}><Icon name={open ? 'close' : 'menu'} /></button>
+        <button className="p-2 text-plum lg:hidden" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}><Icon name={open ? 'close' : 'menu'} /></button>
       </div>
-      {open && <nav onClick={() => setOpen(false)} className="flex flex-col border-t border-plum/10 bg-white px-4 pb-4 lg:hidden">
+      {open && <nav className="flex flex-col border-t border-plum/10 bg-white px-4 pb-4 lg:hidden">
         {links.map(([to, l]) => <NavLink key={to} to={to} className={({ isActive }) => `border-b border-plum/5 py-3 font-medium ${isActive ? 'text-plum' : ''}`}>{l}</NavLink>)}
         <Link to="/contact" className={`${btn} ${btnPlum} mt-4`}>Get a quote</Link>
       </nav>}
@@ -76,6 +76,7 @@ function ProductCard({ p }) {
         <p className="eyebrow">{p.cat}</p>
         <h3 className="mt-1 text-lg font-semibold leading-snug">{p.name}</h3>
         <p className="mt-1 text-sm text-neutral-600">{p.desc}</p>
+        {p.size !== 'Ask us' && <p className="mt-2 text-sm font-semibold text-plum">Sizes: {p.size}</p>}
         <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-plum">View details<Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" /></span>
       </div>
     </Link>
@@ -138,7 +139,7 @@ function Home() {
 
     <section className="mx-auto max-w-6xl px-4 py-16">
       <Heading eyebrow="Our range" sub="Cups, boxes, family packs and buckets with your brand printed in.">Our containers</Heading>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{products.map(p => <ProductCard key={p.id} p={p} />)}</div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{products.slice(0, 6).map(p => <ProductCard key={p.id} p={p} />)}</div>
       <div className="mt-10 text-center"><Link to="/products" className={`${btn} ${btnOutline}`}>View all products</Link></div>
     </section>
 
