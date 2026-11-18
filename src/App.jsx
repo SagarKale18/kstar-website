@@ -68,6 +68,21 @@ function MobileBar() {
   )
 }
 
+function NotFound() {
+  useTitle('Page not found')
+  return (
+    <section className="mx-auto max-w-3xl px-4 py-20 text-center">
+      <p className="eyebrow">404</p>
+      <h1 className="mt-2 text-3xl font-bold text-plum">Page not found</h1>
+      <p className="mt-3 text-neutral-700">The page or product you requested does not exist.</p>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <Gold to="/">Go home</Gold>
+        <Link to="/products" className={`${btn} ${btnOutline}`}>View products</Link>
+      </div>
+    </section>
+  )
+}
+
 function ProductCard({ p }) {
   return (
     <Link to={`/products/${p.id}`} className="card-lift group overflow-hidden rounded-3xl border border-plum/10 bg-white shadow-sm">
@@ -341,7 +356,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
