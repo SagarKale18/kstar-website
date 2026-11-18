@@ -59,7 +59,7 @@ export function Gallery() {
     return () => window.removeEventListener('keydown', k)
   }, [])
   // One tile per image file (some products share a stand-in photo)
-  const imgs = [...new Map([...products.map(p => [p.img, p.name]), ['/images/hero-banner.jpg', 'K-Star packaging range'], ['/images/flyer.jpg', 'K-Star brochure']])]
+  const imgs = [...new Map(products.map(p => [p.img, p.name]))]
   // TODO: add factory and machine photos to public/images/ and list them in imgs above.
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">

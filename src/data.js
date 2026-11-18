@@ -1,11 +1,10 @@
-// TODO: replace placeholders marked CONFIRM with real client details.
 export const company = {
   name: 'K-Star Plastic Industries',
   tagline: 'We Believe In Providing With Best...',
   contactPerson: 'Mr. Abhishek Kadam',
   phone: '+91 94230 61675',
   whatsapp: '919423061675', // CONFIRM: WhatsApp number (same as phone assumed)
-  email: 'info@your-domain.com', // CONFIRM: real email
+  email: 'kstarplastics@gmail.com',
   address: 'Gat No. 124/1, Mirje, Near Shirwal MIDC, Mirje-Jawale Road, Tal. Khandala, Dist. Satara',
   mapsLink: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Gat No. 124/1, Mirje, Shirwal MIDC, Khandala, Satara'), // CONFIRM: exact pin
 }
@@ -28,10 +27,10 @@ export const products = [
 
   // TODO: the four products below use stand-in photos. Replace each img with the client's real photo.
   { id: 'ice-cream-round-family-pack', name: 'Ice cream round family pack', cat: 'Ice cream', img: '/images/products/ice-cream-cup-50ml.jpg', size: '2 litre', desc: 'Round 2 litre family pack for ice cream.', variants: [{ label: '2 litre' }] },
-  { id: 'dahi-cup', name: 'Dahi IML cup', cat: 'Dairy & sweets', img: '/images/products/ice-cream-cup-100ml.jpg', size: '80, 200 and 400 gm', type: 'IML cup', desc: 'IML printed cup for dahi (curd) in three sizes.', variants: [{ label: '80 gm' }, { label: '200 gm' }, { label: '400 gm' }] },
-  { id: 'lassi-glass-200ml', name: 'Lassi IML glass 200 ml', cat: 'Dairy & sweets', img: '/images/products/ice-cream-cup-100ml.jpg', size: '200 ml', type: 'IML glass', extraSpecs: [['Diameter', '80 mm or 69 mm']], desc: 'IML printed 200 ml glass for lassi, in two diameters.', variants: [{ label: '80 mm diameter', note: '200 ml' }, { label: '69 mm diameter', note: '200 ml' }] },
-  { id: 'shrikhand-amrakhand-container', name: 'Shrikhand / Amrakhand container', cat: 'Dairy & sweets', img: '/images/products/ice-cream-family-pack.jpg', size: '100, 250 and 500 gm', type: 'Thin wall IML container', desc: 'Thin wall IML container for shrikhand and amrakhand in three sizes.', variants: [{ label: '100 gm' }, { label: '250 gm' }, { label: '500 gm' }] },
-].map(p => ({ ...p, specs: [['Type', p.type || 'IML / thin wall container'], ['Capacity', p.size], ...(p.extraSpecs || []), ['Material', 'Food grade, BPA free'], ['Safe for', 'Freezer, microwave'], ['Dimensions', 'Ask us'], ['Custom printing', 'Yes, IML']] }))
+  { id: 'dahi-cup', name: 'Dahi cup', cat: 'Dairy & sweets', img: '/images/products/ice-cream-cup-100ml.jpg', size: '80, 200 and 400 gm', type: 'Cup', desc: 'Custom printed cup for dahi (curd) in three sizes.', variants: [{ label: '80 gm' }, { label: '200 gm' }, { label: '400 gm' }] },
+  { id: 'lassi-glass-200ml', name: 'Lassi glass 200 ml', cat: 'Dairy & sweets', img: '/images/products/ice-cream-cup-100ml.jpg', size: '200 ml', type: 'Glass', extraSpecs: [['Diameter', '80 mm or 69 mm']], desc: 'Custom printed 200 ml glass for lassi, in two diameters.', variants: [{ label: '80 mm diameter', note: '200 ml' }, { label: '69 mm diameter', note: '200 ml' }] },
+  { id: 'shrikhand-amrakhand-container', name: 'Shrikhand / Amrakhand container', cat: 'Dairy & sweets', img: '/images/products/ice-cream-family-pack.jpg', size: '100, 250 and 500 gm', type: 'Thin wall container', desc: 'Thin wall container for shrikhand and amrakhand in three sizes.', variants: [{ label: '100 gm' }, { label: '250 gm' }, { label: '500 gm' }] },
+].map(p => ({ ...p, specs: [['Type', p.type || 'Thin wall container'], ['Capacity', p.size], ...(p.extraSpecs || []), ['Material', 'Food grade, BPA free'], ['Safe for', 'Freezer, microwave'], ['Dimensions', 'Ask us'], ['Custom printing', 'Yes']] }))
 
 export const industries = [
   ['Ice cream', 'Tubs and cups that handle freezer storage.'],
@@ -63,17 +62,6 @@ export const partners = [
   ['Melt n Mellow Ice Cream', 'melt-n-mellow'], ['Satkripa', 'satkripa'], ['Fru-Go', 'fru-go'],
   ['Nature Delight', 'nature-delight'], ['Urja Naturals', 'urja-naturals'], ['Peony', 'peony'],
 ].map(([name, file]) => ({ name, img: `/images/partners/${file}.webp` }))
-
-// IML label designs (front panels only). Images live in public/images/printing/.
-// products = the product pages where the sample is shown. home = also shown on the home page.
-export const printing = [
-  { id: 'fru-go', brand: 'Fru-Go', title: 'Alphonso mango pulp tub', img: '/images/printing/fru-go-mango-tub.jpg', products: ['ice-cream-round-family-pack', 'ice-cream-cup-100ml', 'ice-cream-cup-50ml'], home: true },
-  { id: 'shashwath-lassi', brand: 'Shashwath', title: 'Lassi 200 ml glass', img: '/images/printing/shashwath-lassi-label.jpg', products: ['lassi-glass-200ml'], home: true },
-  { id: 'anant-shrikhand-500g', brand: 'Anant', title: 'Shrikhand 500 gm', img: '/images/printing/anant-shrikhand-500g.jpg', products: ['shrikhand-amrakhand-container'], home: true },
-  { id: 'krishnaraj-dahi', brand: 'Krishnaraj', title: 'Dahi 5 kg pack', img: '/images/printing/krishnaraj-dahi-label.jpg', products: ['curd-bucket'], home: true },
-  { id: 'anant-shrikhand-250g', brand: 'Anant', title: 'Shrikhand 250 gm', img: '/images/printing/anant-shrikhand-250g.jpg', products: ['shrikhand-amrakhand-container'], home: false },
-  { id: 'anant-shrikhand-100g', brand: 'Anant', title: 'Shrikhand 100 gm', img: '/images/printing/anant-shrikhand-100g.jpg', products: ['shrikhand-amrakhand-container'], home: false },
-]
 
 export const faq = [
   ['What containers do you make?', 'IML and thin wall containers: curd buckets, dahi cups, lassi glasses, shrikhand and amrakhand containers, ice cream cups, boxes and family packs, and dates (khajur) boxes.'],

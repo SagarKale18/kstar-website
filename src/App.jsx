@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
-import { company as c, features, products, printing, industries, why, tileImg, partners } from './data.js'
+import { company as c, features, products, why, partners } from './data.js'
 import { wa, useTitle, btn, btnPlum, btnOutline, btnWa, Gold, PageHead, Heading } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
 import { Industries, Quality, Gallery, Faq } from './pages.jsx'
@@ -86,7 +86,9 @@ function NotFound() {
 function ProductCard({ p }) {
   return (
     <Link to={`/products/${p.id}`} className="card-lift group overflow-hidden rounded-3xl border border-plum/10 bg-white shadow-sm">
-      <div className="flex aspect-[5/4] items-center justify-center border-b border-plum/5 bg-white"><img src={p.img} alt={p.name} loading="lazy" className="h-full w-full object-contain p-3 transition duration-300 group-hover:scale-105" /></div>
+      <div className="relative isolate flex aspect-[5/4] items-center justify-center overflow-hidden border-b border-plum/5 bg-gradient-to-br from-blush/60 to-white p-3 before:absolute before:inset-8 before:rounded-full before:bg-gold/20 before:blur-2xl">
+        <img src={p.img} alt={p.name} loading="lazy" className="relative h-full w-full rounded-2xl border border-plum/10 object-contain p-2 shadow-[0_4px_18px_rgba(92,10,64,0.12)] transition duration-300 group-hover:scale-105" />
+      </div>
       <div className="p-5">
         <p className="eyebrow">{p.cat}</p>
         <h3 className="mt-1 text-lg font-semibold leading-snug">{p.name}</h3>
@@ -98,30 +100,15 @@ function ProductCard({ p }) {
   )
 }
 
-function PrintCard({ s, to }) {
-  const cls = 'card-lift group block h-full overflow-hidden rounded-3xl border border-plum/10 bg-white shadow-sm'
-  const inner = (<>
-    <div className="flex aspect-[4/5] items-center justify-center bg-gradient-to-br from-blush to-[#f1d6e6] p-3">
-      <img src={s.img} alt={`${s.brand} ${s.title} label design`} loading="lazy" className="max-h-full max-w-full rounded-lg object-contain shadow-lg" />
-    </div>
-    <div className="p-4">
-      <p className="eyebrow">{s.brand}</p>
-      <h3 className="mt-1 text-base font-semibold leading-snug">{s.title}</h3>
-      {to && <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-plum">See the container<Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" /></span>}
-    </div>
-  </>)
-  return to ? <Link to={to} className={cls}>{inner}</Link> : <div className={cls}>{inner}</div>
-}
-
-/* Hero: the full client banner on tablet and desktop, a cropped banner plus live text on phones. */
+/* Use the desktop artwork at wide sizes and the uncropped mobile artwork on phones. */
 function Hero() {
   return (
     <section>
       <h1 className="sr-only hidden md:block">K-Star Plastic Industries: versatile and durable food packaging solutions</h1>
-      <div className="relative aspect-[850/700] w-full bg-[#f6e3c8] md:aspect-[1316/700]">
+      <div className="relative aspect-[850/700] w-full overflow-hidden bg-[#f6e3c8] md:aspect-[1316/700]">
         <picture>
           <source media="(min-width: 768px)" srcSet="/images/hero-banner.jpg" />
-          <img src="/images/hero-banner-mobile.jpg" alt="Curd bucket, ice cream family pack, ice cream box, ice cream cups and dates box" width="850" height="700" fetchpriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+          <img src="/images/hero-banner-mobile.jpg" alt="Curd bucket, ice cream family pack, ice cream box, ice cream cups and dates box" width="850" height="700" fetchpriority="high" decoding="async" className="absolute inset-0 h-full w-full object-contain md:object-cover" />
         </picture>
         {/* Makes the "Explore Our Packaging Range" button inside the banner clickable */}
         <Link to="/products" aria-label="Explore our packaging range" className="absolute hidden rounded-full transition hover:bg-white/15 md:block" style={{ left: '5.1%', top: '77.7%', width: '26.8%', height: '7.4%' }} />
@@ -173,26 +160,10 @@ function Home() {
       <div className="mt-10 text-center"><Link to="/products" className={`${btn} ${btnOutline}`}>View all products</Link></div>
     </section>
 
-    <section className="border-t border-plum/5 bg-white"><div className="mx-auto max-w-6xl px-4 py-16">
-      <Heading eyebrow="IML printing" sub="Your label is moulded into the container. Here are brand label designs for our container sizes.">IML printing examples</Heading>
-      <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">{printing.filter(s => s.home).map(s => <PrintCard key={s.id} s={s} to={`/products/${s.products[0]}`} />)}</div>
-    </div></section>
-
     <section className="bg-blush"><div className="mx-auto max-w-6xl px-4 py-16">
       <Heading eyebrow="Why K-Star">Why choose K-Star</Heading>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{why.map(([i, t, d]) => <div key={t} className="card-lift rounded-3xl border border-transparent bg-white p-6 shadow-sm"><IconBadge name={i} /><h3 className="mt-4 text-xl font-semibold">{t}</h3><p className="mt-1 text-neutral-600">{d}</p></div>)}</div>
     </div></section>
-
-    <section className="mx-auto max-w-6xl px-4 py-16">
-      <Heading eyebrow="Industries">Who we pack for</Heading>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">{industries.map(([t, d]) => (
-        <Link to="/industries" key={t} className="card-lift group relative flex h-60 items-end overflow-hidden rounded-3xl border border-plum/10 bg-white sm:h-64">
-          <img src={tileImg[t]} alt="" loading="lazy" className="absolute inset-x-0 top-0 h-[68%] w-full object-contain p-3 transition duration-500 group-hover:scale-105" />
-          <div className="absolute inset-x-0 bottom-0 h-[56%] bg-gradient-to-t from-plum-dark via-plum-dark/95 to-transparent" />
-          <div className="relative p-4 text-white"><h3 className="text-lg font-bold sm:text-xl">{t}</h3><p className="mt-0.5 hidden text-sm text-white/80 sm:block">{d}</p></div>
-        </Link>
-      ))}</div>
-    </section>
 
     <Partners />
 
@@ -226,12 +197,13 @@ function ProductDetail() {
   const p = products.find(x => x.id === useParams().id)
   useTitle(p ? p.name : 'Product not found')
   if (!p) return <NotFound />
-  const samples = printing.filter(s => s.products.includes(p.id))
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
       <Link to="/products" className="inline-flex items-center gap-1 text-sm text-plum underline"><Icon name="arrow" className="h-4 w-4 rotate-180" />Back to products</Link>
       <div className="mt-4 grid gap-8 md:grid-cols-2">
-        <div className="flex items-center justify-center rounded-3xl border border-gold/40 bg-white p-4"><img src={p.img} alt={p.name} className="max-h-[440px] w-full object-contain" /></div>
+        <div className="relative isolate flex items-center justify-center overflow-hidden rounded-3xl border border-gold/40 bg-gradient-to-br from-blush/60 to-white p-4 before:absolute before:inset-12 before:rounded-full before:bg-gold/20 before:blur-3xl">
+          <img src={p.img} alt={p.name} className="relative max-h-[440px] w-full rounded-2xl border border-plum/10 object-contain p-2 shadow-[0_4px_18px_rgba(92,10,64,0.12)]" />
+        </div>
         <div>
           <p className="eyebrow">{p.cat}</p>
           <h1 className="mt-1 text-3xl font-bold text-plum">{p.name}</h1>
@@ -263,14 +235,6 @@ function ProductDetail() {
           </div>
         </div>
       </div>
-      {samples.length > 0 && (
-        <div className="mt-16">
-          <Heading eyebrow="IML printing" sub="Label designs for this container. Yours can look just as good.">Printed with IML</Heading>
-          <div className="flex flex-wrap justify-center gap-4">
-            {samples.map(s => <div key={s.id} className="w-[46%] sm:w-56"><PrintCard s={s} /></div>)}
-          </div>
-        </div>
-      )}
     </section>
   )
 }
