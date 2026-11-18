@@ -55,6 +55,6 @@ details > summary::-webkit-details-marker { display: none; }
   .btn:hover, .card-lift:hover { transform: none; }
   .marquee { animation: none; width: auto; justify-content: center; }
   .marquee > ul { flex-wrap: wrap; justify-content: center; }
-  .marquee > ul:nth-child(2) { display: none; }
+  .marquee > ul:not(:first-child) { display: none; }
   .marquee-mask { -webkit-mask-image: none; mask-image: none; }
 }

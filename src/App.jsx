@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
-import { company as c, features, products, industries, why, tileImg, partners } from './data.js'
+import { company as c, features, products, printing, industries, why, tileImg, partners } from './data.js'
 import { wa, useTitle, btn, btnPlum, btnOutline, btnWa, Gold, PageHead, Heading } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
 import { Industries, Quality, Gallery, Faq } from './pages.jsx'
@@ -83,6 +83,21 @@ function ProductCard({ p }) {
   )
 }
 
+function PrintCard({ s, to }) {
+  const cls = 'card-lift group block h-full overflow-hidden rounded-3xl border border-plum/10 bg-white shadow-sm'
+  const inner = (<>
+    <div className="flex aspect-[4/5] items-center justify-center bg-gradient-to-br from-blush to-[#f1d6e6] p-3">
+      <img src={s.img} alt={`${s.brand} ${s.title} label design`} loading="lazy" className="max-h-full max-w-full rounded-lg object-contain shadow-lg" />
+    </div>
+    <div className="p-4">
+      <p className="eyebrow">{s.brand}</p>
+      <h3 className="mt-1 text-base font-semibold leading-snug">{s.title}</h3>
+      {to && <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-plum">See the container<Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" /></span>}
+    </div>
+  </>)
+  return to ? <Link to={to} className={cls}>{inner}</Link> : <div className={cls}>{inner}</div>
+}
+
 /* Hero: the full client banner on tablet and desktop, a cropped banner plus live text on phones. */
 function Hero() {
   return (
@@ -112,12 +127,12 @@ function Partners() {
         <Heading eyebrow="Trusted by brands" sub="Food and beverage brands that work with K-Star Plastic Industries.">Our partners</Heading>
       </div>
       <div className="marquee-mask">
-        <div className="marquee">
-          {[0, 1].map(k => (
-            <ul key={k} className="flex shrink-0 items-center gap-4 pr-4 sm:gap-6 sm:pr-6" aria-hidden={k === 1 ? 'true' : undefined}>
+        <div className="marquee" style={{ animationDuration: `${partners.length * 9}s` }}>
+          {[0, 1, 2, 3].map(k => (
+            <ul key={k} className="flex shrink-0 items-center gap-4 pr-4 sm:gap-6 sm:pr-6" aria-hidden={k > 0 ? 'true' : undefined}>
               {partners.map(p => (
                 <li key={p.name} className="flex h-20 w-36 items-center justify-center rounded-2xl border border-plum/10 bg-white p-2 shadow-sm sm:h-28 sm:w-52 sm:p-3">
-                  <img src={p.img} alt={k === 1 ? '' : p.name} loading="lazy" width="400" height="260" className="h-full w-full object-contain" />
+                  <img src={p.img} alt={k > 0 ? '' : p.name} loading="lazy" width="400" height="260" className="h-full w-full object-contain" />
                 </li>
               ))}
             </ul>
@@ -142,6 +157,11 @@ function Home() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{products.slice(0, 6).map(p => <ProductCard key={p.id} p={p} />)}</div>
       <div className="mt-10 text-center"><Link to="/products" className={`${btn} ${btnOutline}`}>View all products</Link></div>
     </section>
+
+    <section className="border-t border-plum/5 bg-white"><div className="mx-auto max-w-6xl px-4 py-16">
+      <Heading eyebrow="IML printing" sub="Your label is moulded into the container. Here are brand label designs for our container sizes.">IML printing examples</Heading>
+      <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">{printing.filter(s => s.home).map(s => <PrintCard key={s.id} s={s} to={`/products/${s.products[0]}`} />)}</div>
+    </div></section>
 
     <section className="bg-blush"><div className="mx-auto max-w-6xl px-4 py-16">
       <Heading eyebrow="Why K-Star">Why choose K-Star</Heading>
@@ -191,6 +211,7 @@ function ProductDetail() {
   const p = products.find(x => x.id === useParams().id)
   useTitle(p ? p.name : 'Product not found')
   if (!p) return <NotFound />
+  const samples = printing.filter(s => s.products.includes(p.id))
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
       <Link to="/products" className="inline-flex items-center gap-1 text-sm text-plum underline"><Icon name="arrow" className="h-4 w-4 rotate-180" />Back to products</Link>
@@ -201,12 +222,40 @@ function ProductDetail() {
           <h1 className="mt-1 text-3xl font-bold text-plum">{p.name}</h1>
           <p className="mt-2 text-neutral-700">{p.desc}</p>
           <table className="mt-5 w-full text-left"><tbody>{p.specs.map(([k, v]) => <tr key={k} className="border-b border-plum/10"><th className="w-1/3 py-2.5 pr-3 font-semibold text-plum">{k}</th><td className="py-2.5">{v}</td></tr>)}</tbody></table>
+          {p.variants && (
+            <div className="mt-6">
+              <h2 className="text-xl font-bold text-plum">Available sizes</h2>
+              <p className="mt-1 text-sm text-neutral-600">Tap a size to ask for a quote.</p>
+              <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {p.variants.map(v => {
+                  const size = v.note ? `${v.label}, ${v.note}` : v.label
+                  return (
+                    <li key={v.label}>
+                      <Link to={`/contact?product=${encodeURIComponent(p.name)}&size=${encodeURIComponent(size)}`} className="card-lift flex h-full flex-col items-center justify-center rounded-2xl border border-gold/50 bg-blush px-3 py-4 text-center">
+                        <span className="font-display text-xl font-bold text-plum">{v.label}</span>
+                        {v.note && <span className="text-sm text-neutral-600">{v.note}</span>}
+                        <span className="mt-2 text-xs font-bold uppercase tracking-widest text-gold">Get quote</span>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
           <div className="mt-6 flex flex-wrap gap-3">
             <Gold to={`/contact?product=${encodeURIComponent(p.name)}`}>Get a quote</Gold>
             <a className={`${btn} ${btnWa}`} href={wa(`Hello K-Star, I want a quote for: ${p.name}`)} target="_blank" rel="noreferrer"><Icon name="chat" className="h-5 w-5" />WhatsApp us</a>
           </div>
         </div>
       </div>
+      {samples.length > 0 && (
+        <div className="mt-16">
+          <Heading eyebrow="IML printing" sub="Label designs for this container. Yours can look just as good.">Printed with IML</Heading>
+          <div className="flex flex-wrap justify-center gap-4">
+            {samples.map(s => <div key={s.id} className="w-[46%] sm:w-56"><PrintCard s={s} /></div>)}
+          </div>
+        </div>
+      )}
     </section>
   )
 }
@@ -227,8 +276,10 @@ function About() {
 
 function Contact() {
   useTitle('Get a quote')
-  const pre = new URLSearchParams(useLocation().search).get('product') || ''
-  const [f, setF] = useState({ name: '', phone: '', product: pre, qty: '', msg: '' })
+  const q = new URLSearchParams(useLocation().search)
+  const pre = q.get('product') || ''
+  const preSize = q.get('size') || ''
+  const [f, setF] = useState({ name: '', phone: '', product: pre, qty: '', msg: preSize ? `Size needed: ${preSize}` : '' })
   const [state, setState] = useState('idle')
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value })
   const key = import.meta.env.VITE_WEB3FORMS_KEY // optional: free key from web3forms.com, sends quotes to email
@@ -263,43 +314,40 @@ function Contact() {
         : <form onSubmit={submit} className="space-y-3 rounded-3xl border border-gold/30 bg-blush/50 p-5 md:p-6">
           <input required aria-label="Your name" className={field} placeholder="Your name" value={f.name} onChange={set('name')} />
           <input required type="tel" aria-label="Phone number" className={field} placeholder="Phone number" value={f.phone} onChange={set('phone')} />
-          <select aria-label="Product" className={field} value={f.product} onChange={set('product')}><option value="">Choose a product</option>{products.map(p => <option key={p.id}>{p.name}</option>)}</select>
-          <input aria-label="Quantity needed" className={field} placeholder="Quantity needed" value={f.qty} onChange={set('qty')} />
-          <textarea rows="4" aria-label="Message" className={field} placeholder="Message" value={f.msg} onChange={set('msg')} />
-          <button disabled={state === 'sending'} className={`${btn} ${btnPlum} w-full`}>{state === 'sending' ? 'Sending...' : key ? 'Send request' : 'Send on WhatsApp'}</button>
-          {state === 'error' && <p className="text-red-700">The request did not send. Call us or use WhatsApp instead.</p>}
+          <input required aria-label="Product" className={field} placeholder="Product or container" value={f.product} onChange={set('product')} />
+          <input required aria-label="Quantity" className={field} placeholder="Required quantity" value={f.qty} onChange={set('qty')} />
+          <textarea aria-label="Additional details" className={`${field} min-h-24 resize-y`} placeholder="Size, material or other details" value={f.msg} onChange={set('msg')} />
+          <button type="submit" disabled={state === 'sending'} className="w-full rounded-lg bg-plum px-4 py-3 font-semibold text-white transition hover:bg-plum-dark disabled:cursor-wait disabled:opacity-70">
+            {state === 'sending' ? 'Sending...' : 'Send quote request'}
+          </button>
+          {state === 'error' && <p role="alert" className="text-sm font-semibold text-red-700">We could not send the request. Please try again or contact us on WhatsApp.</p>}
         </form>}
     </section>
   )
 }
 
-function NotFound() {
-  useTitle('Page not found')
+function App() {
   return (
-    <section className="mx-auto max-w-xl px-4 py-24 text-center">
-      <p className="eyebrow">Error 404</p>
-      <h1 className="mt-2 text-4xl font-bold text-plum">We could not find that page</h1>
-      <p className="mt-3 text-neutral-600">The link may be old or mistyped. Go back home or browse our containers.</p>
-      <div className="mt-6 flex flex-wrap justify-center gap-3"><Gold to="/">Back to home</Gold><Link to="/products" className={`${btn} ${btnOutline}`}>See products</Link></div>
-    </section>
+    <div className="flex min-h-screen flex-col pb-16 md:pb-0">
+      <Header />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/quality" element={<Quality />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </main>
+      <Footer />
+      <MobileBar />
+    </div>
   )
 }
 
-export default function App() {
-  return (<>
-    <Header />
-    <main><Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/products" element={<Page t="Products" s="Containers for ice cream, dairy, sweets and dry fruits."><Products /></Page>} />
-      <Route path="/products/:id" element={<ProductDetail />} />
-      <Route path="/industries" element={<Page t="Industries" s="Who we make containers for."><Industries /></Page>} />
-      <Route path="/quality" element={<Page t="Quality" s="Food grade, BPA free and ISO 9001:2015 certified."><Quality /></Page>} />
-      <Route path="/gallery" element={<Page t="Gallery" s="Our container range."><Gallery /></Page>} />
-      <Route path="/about" element={<Page t="About us" s="Mirje, near Shirwal MIDC, Satara."><About /></Page>} />
-      <Route path="/faq" element={<Page t="Questions and answers" s="Quick answers before you ask for a quote."><Faq /></Page>} />
-      <Route path="/contact" element={<Page t="Get a quote" s="Send the size and quantity you need. We will call you back."><Contact /></Page>} />
-      <Route path="*" element={<NotFound />} />
-    </Routes></main>
-    <Footer /><MobileBar />
-  </>)
-}
+export default App

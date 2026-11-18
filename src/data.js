@@ -57,11 +57,23 @@ export const tileImg = {
   'Dry fruits': '/images/products/dates-khajur-box.jpg',
 }
 
-// Partner logos live in public/images/partners/
+// Partner logos live in public/images/partners/ (WebP, 400x260)
 export const partners = [
-  ['Ladybean Coffee', 'ladybean-coffee'], ['Pepsi', 'pepsi'], ['Chaitanya Parathas', 'chaitanya-parathas'], ['Cafe 17-30', 'cafe-17-30'],
-  ['Zorko', 'zorko'], ['Dilli Darbar', 'dilli-darbar'], ['RD Cafe Ice-Cream', 'rd-cafe-ice-cream'], ['Zeeshan', 'zeeshan'],
-].map(([name, file]) => ({ name, img: `/images/partners/${file}.png` }))
+  ['Shashwath', 'shashwath'], ['Crazy Ice-Cream', 'crazy-ice-cream'], ['Krishnaraj Dahi', 'krishnaraj-dahi'],
+  ['Melt n Mellow Ice Cream', 'melt-n-mellow'], ['Satkripa', 'satkripa'], ['Fru-Go', 'fru-go'],
+  ['Nature Delight', 'nature-delight'], ['Urja Naturals', 'urja-naturals'], ['Peony', 'peony'],
+].map(([name, file]) => ({ name, img: `/images/partners/${file}.webp` }))
+
+// IML label designs (front panels only). Images live in public/images/printing/.
+// products = the product pages where the sample is shown. home = also shown on the home page.
+export const printing = [
+  { id: 'fru-go', brand: 'Fru-Go', title: 'Alphonso mango pulp tub', img: '/images/printing/fru-go-mango-tub.jpg', products: ['ice-cream-round-family-pack', 'ice-cream-cup-100ml', 'ice-cream-cup-50ml'], home: true },
+  { id: 'shashwath-lassi', brand: 'Shashwath', title: 'Lassi 200 ml glass', img: '/images/printing/shashwath-lassi-label.jpg', products: ['lassi-glass-200ml'], home: true },
+  { id: 'anant-shrikhand-500g', brand: 'Anant', title: 'Shrikhand 500 gm', img: '/images/printing/anant-shrikhand-500g.jpg', products: ['shrikhand-amrakhand-container'], home: true },
+  { id: 'krishnaraj-dahi', brand: 'Krishnaraj', title: 'Dahi 5 kg pack', img: '/images/printing/krishnaraj-dahi-label.jpg', products: ['curd-bucket'], home: true },
+  { id: 'anant-shrikhand-250g', brand: 'Anant', title: 'Shrikhand 250 gm', img: '/images/printing/anant-shrikhand-250g.jpg', products: ['shrikhand-amrakhand-container'], home: false },
+  { id: 'anant-shrikhand-100g', brand: 'Anant', title: 'Shrikhand 100 gm', img: '/images/printing/anant-shrikhand-100g.jpg', products: ['shrikhand-amrakhand-container'], home: false },
+]
 
 export const faq = [
   ['What containers do you make?', 'IML and thin wall containers: curd buckets, dahi cups, lassi glasses, shrikhand and amrakhand containers, ice cream cups, boxes and family packs, and dates (khajur) boxes.'],
