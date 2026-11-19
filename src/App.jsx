@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
-import { company as c, features, products, why, partners } from './data.js'
+import { company as c, features, products, printMocks, why, partners } from './data.js'
 import { wa, useTitle, btn, btnPlum, btnOutline, btnWa, Gold, PageHead, Heading } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
 import { Industries, Quality, Gallery, Faq } from './pages.jsx'
@@ -86,8 +86,8 @@ function NotFound() {
 function ProductCard({ p }) {
   return (
     <Link to={`/products/${p.id}`} className="card-lift group overflow-hidden rounded-3xl border border-plum/10 bg-white shadow-sm">
-      <div className="relative isolate flex aspect-[5/4] items-center justify-center overflow-hidden border-b border-plum/5 bg-gradient-to-br from-blush/60 to-white p-3 before:absolute before:inset-8 before:rounded-full before:bg-gold/20 before:blur-2xl">
-        <img src={p.img} alt={p.name} loading="lazy" className="relative h-full w-full rounded-2xl border border-plum/10 object-contain p-2 shadow-[0_4px_18px_rgba(92,10,64,0.12)] transition duration-300 group-hover:scale-105" />
+      <div className="flex aspect-[5/4] items-center justify-center overflow-hidden border-b border-plum/5 bg-white p-3">
+        <img src={p.img} alt={p.name} loading="lazy" className="h-full w-full object-contain p-2 transition duration-300 group-hover:scale-105" />
       </div>
       <div className="p-5">
         <p className="eyebrow">{p.cat}</p>
@@ -160,6 +160,25 @@ function Home() {
       <div className="mt-10 text-center"><Link to="/products" className={`${btn} ${btnOutline}`}>View all products</Link></div>
     </section>
 
+    <section id="printed-mockups" className="bg-blush">
+      <div className="mx-auto max-w-6xl px-4 py-16">
+        <Heading eyebrow="Custom printing" sub="Printed packaging examples for different products and brands.">Printed product mockups</Heading>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {printMocks.map(item => (
+            <article key={item.name} className="overflow-hidden rounded-3xl border border-plum/10 bg-white">
+              <div className="flex aspect-[4/3] items-center justify-center p-3">
+                <img src={item.img} alt={`${item.brand} ${item.name} packaging`} loading="lazy" className="h-full w-full object-contain" />
+              </div>
+              <div className="border-t border-plum/5 p-4">
+                <p className="eyebrow">{item.brand}</p>
+                <h3 className="mt-1 text-lg font-semibold">{item.name}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section className="bg-blush"><div className="mx-auto max-w-6xl px-4 py-16">
       <Heading eyebrow="Why K-Star">Why choose K-Star</Heading>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{why.map(([i, t, d]) => <div key={t} className="card-lift rounded-3xl border border-transparent bg-white p-6 shadow-sm"><IconBadge name={i} /><h3 className="mt-4 text-xl font-semibold">{t}</h3><p className="mt-1 text-neutral-600">{d}</p></div>)}</div>
@@ -201,8 +220,8 @@ function ProductDetail() {
     <section className="mx-auto max-w-6xl px-4 py-10">
       <Link to="/products" className="inline-flex items-center gap-1 text-sm text-plum underline"><Icon name="arrow" className="h-4 w-4 rotate-180" />Back to products</Link>
       <div className="mt-4 grid gap-8 md:grid-cols-2">
-        <div className="relative isolate flex items-center justify-center overflow-hidden rounded-3xl border border-gold/40 bg-gradient-to-br from-blush/60 to-white p-4 before:absolute before:inset-12 before:rounded-full before:bg-gold/20 before:blur-3xl">
-          <img src={p.img} alt={p.name} className="relative max-h-[440px] w-full rounded-2xl border border-plum/10 object-contain p-2 shadow-[0_4px_18px_rgba(92,10,64,0.12)]" />
+        <div className="flex items-center justify-center overflow-hidden rounded-3xl border border-gold/40 bg-white p-4">
+          <img src={p.img} alt={p.name} className="max-h-[440px] w-full object-contain p-2" />
         </div>
         <div>
           <p className="eyebrow">{p.cat}</p>

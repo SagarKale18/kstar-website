@@ -25,12 +25,18 @@ export const products = [
   { id: 'ice-cream-cup-50ml', name: 'Ice cream cup 50 ml', cat: 'Ice cream', img: '/images/products/ice-cream-cup-50ml.jpg', size: '50 ml', desc: 'Small tasting cup with lid for ice cream and desserts.' },
   { id: 'dates-khajur-box', name: 'Dates (khajur) box', cat: 'Dry fruits', img: '/images/products/dates-khajur-box.jpg', size: 'Ask us', desc: 'Rectangular box with lid for dates and dry fruits.' },
 
-  // TODO: the four products below use stand-in photos. Replace each img with the client's real photo.
-  { id: 'ice-cream-round-family-pack', name: 'Ice cream round family pack', cat: 'Ice cream', img: '/images/products/ice-cream-cup-50ml.jpg', size: '2 litre', desc: 'Round 2 litre family pack for ice cream.', variants: [{ label: '2 litre' }] },
-  { id: 'dahi-cup', name: 'Dahi cup', cat: 'Dairy & sweets', img: '/images/products/ice-cream-cup-100ml.jpg', size: '80, 200 and 400 gm', type: 'Cup', desc: 'Custom printed cup for dahi (curd) in three sizes.', variants: [{ label: '80 gm' }, { label: '200 gm' }, { label: '400 gm' }] },
+  { id: 'ice-cream-round-family-pack', name: 'Ice cream round family pack', cat: 'Ice cream', img: '/images/products/round-family-pack.jpg', size: '2 litre', desc: 'Round 2 litre family pack for ice cream.', variants: [{ label: '2 litre' }] },
+  { id: 'dahi-cup', name: 'Dahi cup', cat: 'Dairy & sweets', img: '/images/products/plain-cup.jpg', size: '80, 200 and 400 gm', type: 'Cup', desc: 'Custom printed cup for dahi (curd) in three sizes.', variants: [{ label: '80 gm' }, { label: '200 gm' }, { label: '400 gm' }] },
   { id: 'lassi-glass-200ml', name: 'Lassi glass 200 ml', cat: 'Dairy & sweets', img: '/images/products/ice-cream-cup-100ml.jpg', size: '200 ml', type: 'Glass', extraSpecs: [['Diameter', '80 mm or 69 mm']], desc: 'Custom printed 200 ml glass for lassi, in two diameters.', variants: [{ label: '80 mm diameter', note: '200 ml' }, { label: '69 mm diameter', note: '200 ml' }] },
   { id: 'shrikhand-amrakhand-container', name: 'Shrikhand / Amrakhand container', cat: 'Dairy & sweets', img: '/images/products/ice-cream-family-pack.jpg', size: '100, 250 and 500 gm', type: 'Thin wall container', desc: 'Thin wall container for shrikhand and amrakhand in three sizes.', variants: [{ label: '100 gm' }, { label: '250 gm' }, { label: '500 gm' }] },
 ].map(p => ({ ...p, specs: [['Type', p.type || 'Thin wall container'], ['Capacity', p.size], ...(p.extraSpecs || []), ['Material', 'Food grade, BPA free'], ['Safe for', 'Freezer, microwave'], ['Dimensions', 'Ask us'], ['Custom printing', 'Yes']] }))
+
+export const printMocks = [
+  { brand: 'Crazy Ice-Cream', name: 'Choco Ripple', img: '/images/printing/crazy-choco-ripple.jpg' },
+  { brand: 'Kokan Gold', name: 'Malai Lassi', img: '/images/printing/kokan-gold-lassi.jpg' },
+  { brand: 'Krishnaraj Dahi', name: 'Dahi bucket', img: '/images/printing/krishnaraj-dahi-bucket.jpg' },
+  { brand: 'Shashwath', name: 'Shahi Shrikhand', img: '/images/printing/shashwath-shrikhand.jpg' },
+]
 
 export const industries = [
   ['Ice cream', 'Tubs and cups that handle freezer storage.'],
@@ -56,12 +62,13 @@ export const tileImg = {
   'Dry fruits': '/images/products/dates-khajur-box.jpg',
 }
 
-// Partner logos live in public/images/partners/ (WebP, 400x260)
+// Partner logos live in public/images/partners/.
 export const partners = [
-  ['Shashwath', 'shashwath'], ['Crazy Ice-Cream', 'crazy-ice-cream'], ['Krishnaraj Dahi', 'krishnaraj-dahi'],
-  ['Melt n Mellow Ice Cream', 'melt-n-mellow'], ['Satkripa', 'satkripa'], ['Fru-Go', 'fru-go'],
-  ['Nature Delight', 'nature-delight'], ['Urja Naturals', 'urja-naturals'], ['Peony', 'peony'],
-].map(([name, file]) => ({ name, img: `/images/partners/${file}.webp` }))
+  ['Snow Barry', 'snow-barry.jpg'], ['Baskin Robbins', 'baskin-robbins.jpg'],
+  ['Shashwath', 'shashwath.webp'], ['Crazy Ice-Cream', 'crazy-ice-cream.webp'], ['Krishnaraj Dahi', 'krishnaraj-dahi.webp'],
+  ['Melt n Mellow Ice Cream', 'melt-n-mellow.webp'], ['Satkripa', 'satkripa.webp'], ['Fru-Go', 'fru-go.webp'],
+  ['Nature Delight', 'nature-delight.webp'], ['Urja Naturals', 'urja-naturals.webp'], ['Peony', 'peony.webp'],
+].map(([name, file]) => ({ name, img: `/images/partners/${file}` }))
 
 export const faq = [
   ['What containers do you make?', 'IML and thin wall containers: curd buckets, dahi cups, lassi glasses, shrikhand and amrakhand containers, ice cream cups, boxes and family packs, and dates (khajur) boxes.'],
