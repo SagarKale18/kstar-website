@@ -3,7 +3,7 @@ import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-rout
 import { company as c, features, products, printMocks, why, partners } from './data.js'
 import { wa, useTitle, btn, btnPlum, btnOutline, btnWa, Gold, PageHead, Heading } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
-import { Industries, Quality, Gallery, Faq } from './pages.jsx'
+import { Quality, Gallery, Faq } from './pages.jsx'
 
 const Page = ({ t, s, children }) => <><PageHead title={t} sub={s} />{children}</>
 const tel = `tel:${c.phone.replace(/\s/g, '')}`
@@ -12,7 +12,7 @@ function Header() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
   useEffect(() => { setOpen(false); window.scrollTo(0, 0) }, [pathname])
-  const links = [['/', 'Home'], ['/products', 'Products'], ['/industries', 'Industries'], ['/quality', 'Quality'], ['/gallery', 'Gallery'], ['/about', 'About'], ['/faq', 'FAQ']]
+  const links = [['/', 'Home'], ['/products', 'Products'], ['/quality', 'Quality'], ['/gallery', 'Gallery'], ['/about', 'About'], ['/faq', 'FAQ']]
   return (<>
     <div className="hidden bg-plum-dark text-xs text-white/80 lg:block">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-1.5">
@@ -44,7 +44,7 @@ function Footer() {
       <div className="h-1 bg-gradient-to-r from-gold via-[#f0c24a] to-gold" />
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3">
         <div><img src="/images/logo.png" alt="" className="mb-4 h-14 rounded bg-white p-1" /><p className="max-w-xs text-sm leading-relaxed">ISO 9001:2015 certified maker of IML and thin wall containers. {c.tagline}</p></div>
-        <div><h3 className="mb-3 text-lg text-gold">Pages</h3>{[['/products', 'Products'], ['/industries', 'Industries'], ['/quality', 'Quality'], ['/gallery', 'Gallery'], ['/about', 'About'], ['/faq', 'FAQ'], ['/contact', 'Get a quote']].map(([t, l]) => <Link key={t} to={t} className="block py-1 text-sm transition hover:text-gold">{l}</Link>)}</div>
+        <div><h3 className="mb-3 text-lg text-gold">Pages</h3>{[['/products', 'Products'], ['/quality', 'Quality'], ['/gallery', 'Gallery'], ['/about', 'About'], ['/faq', 'FAQ'], ['/contact', 'Get a quote']].map(([t, l]) => <Link key={t} to={t} className="block py-1 text-sm transition hover:text-gold">{l}</Link>)}</div>
         <div className="text-sm"><h3 className="mb-3 text-lg text-gold">Contact</h3>
           <p className="py-1.5 font-semibold text-white">{c.contactPerson}</p>
           <a className={row} href={tel}><Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-gold" />{c.phone}</a>
@@ -333,7 +333,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/industries" element={<Industries />} />
           <Route path="/quality" element={<Quality />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />

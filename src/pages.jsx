@@ -1,32 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { products, industries, indMap, tileImg, faq, why } from './data.js'
+import { products, faq, why, printMocks } from './data.js'
 import { Gold, btn, btnWa, useTitle, wa } from './ui.jsx'
 import { Icon, IconBadge } from './icons.jsx'
-
-export function Industries() {
-  useTitle('Industries')
-  return (
-    <div className="mx-auto max-w-6xl space-y-10 px-4 py-12">
-      {industries.map(([t, d], i) => {
-        const list = products.filter(p => p.cat === indMap[t])
-        return (
-          <section key={t} className={`card-lift grid items-center gap-6 overflow-hidden rounded-3xl border border-plum/10 bg-blush md:grid-cols-2 ${i % 2 ? 'md:[&>div:first-child]:order-2' : ''}`}>
-            <div className="flex h-64 items-center justify-center bg-gradient-to-br from-plum to-plum-dark p-6 md:h-full"><img src={tileImg[t]} alt={t} loading="lazy" className="max-h-56 rounded-2xl bg-white object-contain shadow-2xl" /></div>
-            <div className="p-6 md:p-10">
-              <p className="eyebrow">Industry</p>
-              <h2 className="mt-1 text-3xl font-bold text-plum">{t}</h2>
-              <p className="mt-2 text-lg text-neutral-700">{d}</p>
-              <p className="mt-4 font-semibold text-plum">Containers for {t.toLowerCase()}</p>
-              <ul className="mt-1 list-inside list-disc text-neutral-700">{list.map(p => <li key={p.id}><Link className="underline" to={`/products/${p.id}`}>{p.name}</Link></li>)}</ul>
-              <div className="mt-5"><Gold to={list.length ? `/contact?product=${encodeURIComponent(list[0].name)}` : '/contact'}>Get a quote</Gold></div>
-            </div>
-          </section>
-        )
-      })}
-    </div>
-  )
-}
 
 export function Quality() {
   useTitle('Quality')
@@ -62,14 +37,37 @@ export function Gallery() {
   const imgs = [...new Map(products.map(p => [p.img, p.name]))]
   // TODO: add factory and machine photos to public/images/ and list them in imgs above.
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
-        {imgs.map(([s, a]) => (
-          <button key={s} onClick={() => setOpen([s, a])} aria-label={`Open ${a}`} className="card-lift group overflow-hidden rounded-2xl border border-plum/10 bg-white">
-            <img src={s} alt={a} loading="lazy" className="aspect-square w-full object-contain p-2 transition duration-300 group-hover:scale-105" />
-          </button>
-        ))}
-      </div>
+    <div>
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
+          {imgs.map(([s, a]) => (
+            <button key={s} onClick={() => setOpen([s, a])} aria-label={`Open ${a}`} className="card-lift group overflow-hidden rounded-2xl border border-plum/10 bg-white">
+              <img src={s} alt={a} loading="lazy" className="aspect-square w-full object-contain p-2 transition duration-300 group-hover:scale-105" />
+            </button>
+          ))}
+        </div>
+      </section>
+      <section className="bg-blush">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <div className="mb-10 text-center">
+            <p className="eyebrow mb-2">Custom printing</p>
+            <h2 className="text-3xl font-bold text-plum md:text-4xl">Printed product mockups</h2>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {printMocks.map(item => (
+              <button key={item.name} type="button" onClick={() => setOpen([item.img, `${item.brand} ${item.name} packaging`])} aria-label={`Open ${item.brand} ${item.name} packaging`} className="overflow-hidden rounded-3xl border border-plum/10 bg-white text-left">
+                <div className="flex aspect-[4/3] items-center justify-center p-3">
+                  <img src={item.img} alt={`${item.brand} ${item.name} packaging`} loading="lazy" className="h-full w-full object-contain" />
+                </div>
+                <div className="border-t border-plum/5 p-4">
+                  <p className="eyebrow">{item.brand}</p>
+                  <h3 className="mt-1 text-lg font-semibold">{item.name}</h3>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
       {open && (
         <div role="dialog" aria-modal="true" aria-label={open[1]} onClick={() => setOpen(null)} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
           <img src={open[0]} alt={open[1]} className="max-h-full max-w-full rounded-xl bg-white" />
